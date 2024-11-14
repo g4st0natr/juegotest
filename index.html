@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Verdadero o Falso - Emigrantes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #74ebd5, #acb6e5);
+            color: #333;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        .game-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            animation: fadeIn 1s ease-in;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .question {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .score {
+            margin-top: 20px;
+            font-size: 22px;
+            color: #f44336;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="game-container">
+        <h1>Juego de Verdadero o Falso - Emigrantes</h1>
+        <p class="question" id="question">Pregunta aquí...</p>
+
+        <div class="buttons">
+            <button class="button" onclick="checkAnswer(true)">Verdadero</button>
+            <button class="button" onclick="checkAnswer(false)">Falso</button>
+        </div>
+
+        <div class="result" id="result"></div>
+        <div class="score" id="score"></div>
+    </div>
+
+    <script>
+        const questions = [
+            { question: "Las personas emigran solo por trabajo.", answer: false },
+            { question: "El cambio climático puede hacer que las personas emigren.", answer: true },
+            { question: "Emigrar siempre es fácil y sin problemas.", answer: false },
+            { question: "La migración solo afecta a los países ricos.", answer: false },
+            { question: "La violencia es una de las razones de emigración.", answer: true },
+            { question: "Todos los emigrantes son ilegales.", answer: false },
+            { question: "Un emigrante deja su país de origen.", answer: true },
+            { question: "Los emigrantes pueden enfrentar barreras culturales.", answer: true },
+            { question: "Emigrar significa abandonar la cultura propia.", answer: false },
+            { question: "El desempleo es una causa común de emigración.", answer: true },
+            { question: "Los países de origen nunca se benefician de la emigración.", answer: false },
+            { question: "La pobreza es una razón común para emigrar.", answer: true },
+            { question: "Todos los emigrantes encuentran trabajo rápidamente.", answer: false },
+            { question: "Muchos emigrantes envían dinero a sus familias.", answer: true },
+            { question: "Emigrar siempre significa mudarse a otro continente.", answer: false },
+            { question: "La educación es una razón para emigrar.", answer: true },
+            { question: "Un emigrante siempre tiene derecho al asilo.", answer: false },
+            { question: "La emigración puede ser por motivos políticos.", answer: true },
+            { question: "Un emigrante nunca regresa a su país de origen.", answer: false },
+            { question: "Los emigrantes siempre son bien recibidos.", answer: false }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        function loadQuestion() {
+            const questionElement = document.getElementById("question");
+            questionElement.innerText = questions[currentQuestionIndex].question;
+            document.getElementById("result").innerText = "";
+        }
+
+        function checkAnswer(userAnswer) {
+            const currentQuestion = questions[currentQuestionIndex];
+            if (userAnswer === currentQuestion.answer) {
+                score++;
+                document.getElementById("result").innerText = "¡Correcto!";
+            } else {
+                document.getElementById("result").innerText = "Incorrecto";
+            }
+
+            currentQuestionIndex++;
+            setTimeout(() => {
+                if (currentQuestionIndex < questions.length) {
+                    loadQuestion();
+                } else {
+                    showFinalScore();
+                }
+            }, 1000);
+        }
+
+        function showFinalScore() {
+            document.getElementById("question").innerText = "Juego terminado";
+            document.getElementById("score").innerText = `Puntaje final: ${score} de ${questions.length}`;
+            document.querySelector(".buttons").style.display = "none";
+        }
+
+        loadQuestion();
+    </script>
+
+</body>
+  </html>
